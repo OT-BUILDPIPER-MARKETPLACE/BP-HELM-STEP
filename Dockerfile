@@ -7,7 +7,7 @@ ADD BP-BASE-SHELL-STEPS /opt/buildpiper/shell-functions/
 
 ENV INSTRUCTION update
 ENV BASE_PATH ""
-ENV CHART_YAML Chart.yaml
+ENV CHART_YAML_DIR "."
 ENV VALUE_YAML values.yaml
 ENV RELEASE_NAME ""
 ENV SLEEP_DURATION 5s

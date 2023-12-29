@@ -9,7 +9,7 @@ TASK_STATUS=0
 
 HELM_CODE_LOCATION="${WORKSPACE}"/"${CODEBASE_DIR}/${BASE_PATH}"
 logInfoMessage "I'll do helm processing at [$HELM_CODE_LOCATION]"
-sleep  $SLEEP_DURATION
+sleep $SLEEP_DURATION
 cd  "${HELM_CODE_LOCATION}"
 
 TASK_STATUS=0
@@ -19,7 +19,7 @@ case ${INSTRUCTION} in
     helm dependency update
     ;;
   install)
-    helm upgrade --install -f ${VALUE_YAML} ${RELEASE_NAME} ${BASE_PATH}
+    helm upgrade --install -f ${VALUE_YAML} ${RELEASE_NAME} ${CHART_YAML_DIR}
     ;;
   *)
     logWarningMessage "Please check incompatible scanner passed!!!"
