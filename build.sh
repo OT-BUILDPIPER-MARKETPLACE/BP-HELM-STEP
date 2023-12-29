@@ -37,7 +37,7 @@ case ${INSTRUCTION} in
     helm dependency update
     ;;
   install)
-    valuesStr=`generateValuesStr ${VALUE_YAML} !!`
+    valuesStr=`generateValuesStr ${VALUE_YAML} @`
     logInfoMessage "Running command [helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}]"
     helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
     ;;
