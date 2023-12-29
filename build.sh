@@ -14,11 +14,12 @@ cd  "${CODEBASE_LOCATION}"
 
 TASK_STATUS=0
 
-if [condition]; then
+helm dependency update
+# if [condition]; then
     logErrorMessage "Done the required operation"
-else
-    TASK_STATUS=1
-    logErrorMessage "Target server not provided please check"
+# else
+#     TASK_STATUS=1
+#     logErrorMessage "Target server not provided please check"
 
-fi
+# fi
 saveTaskStatus ${TASK_STATUS} ${ACTIVITY_SUB_TASK_CODE}

@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine/helm
 RUN apk add --no-cache --upgrade bash
 RUN apk add jq
 COPY build.sh .
