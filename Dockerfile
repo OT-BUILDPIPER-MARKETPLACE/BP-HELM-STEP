@@ -5,7 +5,7 @@ COPY build.sh .
 
 ADD BP-BASE-SHELL-STEPS /opt/buildpiper/shell-functions/
 
-ENV INSTRUCTION "dependency update"
+ENV INSTRUCTION update
 ENV BASE_PATH ""
 ENV CHART_YAML Chart.yaml
 ENV VALUE_YAML values.yaml

@@ -15,7 +15,6 @@ cd  "${HELM_CODE_LOCATION}"
 TASK_STATUS=0
 
 case ${INSTRUCTION} in
-
   update)
     helm dependency update
     ;;
