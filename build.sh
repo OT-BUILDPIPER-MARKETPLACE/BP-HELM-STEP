@@ -19,7 +19,7 @@ case ${INSTRUCTION} in
     helm dependency update
     ;;
   install)
-    helm upgrade --install . -f ${VALUE_YAML} 
+    helm upgrade --install -f ${VALUE_YAML} ${RELEASE_NAME} ${BASE_PATH}
     ;;
   *)
     logWarningMessage "Please check incompatible scanner passed!!!"
