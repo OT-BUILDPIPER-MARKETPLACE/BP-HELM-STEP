@@ -7,19 +7,25 @@ source /opt/buildpiper/shell-functions/aws-functions.sh
 
 TASK_STATUS=0
 
-CODEBASE_LOCATION="${WORKSPACE}"/"${CODEBASE_DIR}"
-logInfoMessage "I'll do processing at [$CODEBASE_LOCATION]"
+HELM_CODE_LOCATION="${WORKSPACE}"/"${CODEBASE_DIR}/${BASE_PATH}"
+logInfoMessage "I'll do helm processing at [$HELM_CODE_LOCATION]"
 sleep  $SLEEP_DURATION
-cd  "${CODEBASE_LOCATION}"
+cd  "${HELM_CODE_LOCATION}"
 
 TASK_STATUS=0
 
-helm dependency update
-# if [condition]; then
-    logErrorMessage "Done the required operation"
-# else
-#     TASK_STATUS=1
-#     logErrorMessage "Target server not provided please check"
+case ${INSTRUCTION} in
 
-# fi
+  update)
+    helm dependency update
+    ;;
+  install)
+    helm upgrade --install . -f ${VALUE_YAML} 
+    ;;
+  *)
+    logWarningMessage "Please check incompatible scanner passed!!!"
+    generateOutput ${ACTIVITY_SUB_TASK_CODE} true "Please check incompatible scanner passed!!!"
+    ;;
+esac
+
 saveTaskStatus ${TASK_STATUS} ${ACTIVITY_SUB_TASK_CODE}
