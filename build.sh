@@ -7,6 +7,20 @@ source /opt/buildpiper/shell-functions/aws-functions.sh
 
 TASK_STATUS=0
 
+function generateValuesStr() {
+  local string="$1"
+  local delimiter="$2"
+  local valuesStr=""
+  if [ -n "$string" ]; then
+      local part
+      while read -d "$delimiter" part; do
+          valuesStr="-f $part $valuesStr"
+      done <<< "$string"
+      valuesStr="-f $part $valuesStr"
+  fi
+  echo $valuesStr
+}
+
 HELM_CODE_LOCATION="${WORKSPACE}"/"${CODEBASE_DIR}/${BASE_PATH}"
 logInfoMessage "I'll do helm processing at [$HELM_CODE_LOCATION]"
 sleep $SLEEP_DURATION
@@ -20,6 +34,7 @@ case ${INSTRUCTION} in
     helm dependency update
     ;;
   install)
+    valuesStr=`generateValuesStr ${VALUE_YAML} #`
     helm upgrade --install -f ${VALUE_YAML} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
     ;;
   *)
