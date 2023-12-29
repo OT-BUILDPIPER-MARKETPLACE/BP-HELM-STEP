@@ -35,7 +35,7 @@ case ${INSTRUCTION} in
     ;;
   install)
     valuesStr=`generateValuesStr ${VALUE_YAML} #`
-    helm upgrade --install -f ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
+    helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
     ;;
   *)
     logWarningMessage "Please check incompatible scanner passed!!!"
