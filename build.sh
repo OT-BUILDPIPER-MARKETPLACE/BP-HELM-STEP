@@ -11,11 +11,11 @@ function generateValuesStr() {
   local string="$1"
   local delimiter="$2"
   local valuesStr=""
-  echo "String: [$string]"
-  echo "Delimeter: [$delimiter]"
+  # echo "String: [$string]"
+  # echo "Delimeter: [$delimiter]"
   if [ -n "$string" ]; then
       local part
-      echo $part
+      # echo $part
       while read -d "$delimiter" part; do
           valuesStr="-f $part $valuesStr"
       done <<< "$string"
