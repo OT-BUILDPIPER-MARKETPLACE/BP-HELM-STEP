@@ -16,6 +16,7 @@ TASK_STATUS=0
 
 case ${INSTRUCTION} in
   update)
+    cd ${CHART_YAML_DIR}
     helm dependency update
     ;;
   install)
