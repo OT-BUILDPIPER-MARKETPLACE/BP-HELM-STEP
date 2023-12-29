@@ -11,8 +11,11 @@ function generateValuesStr() {
   local string="$1"
   local delimiter="$2"
   local valuesStr=""
+  echo "String: [$string]"
+  echo "Delimeter: [$delimiter]"
   if [ -n "$string" ]; then
       local part
+      echo $part
       while read -d "$delimiter" part; do
           valuesStr="-f $part $valuesStr"
       done <<< "$string"
@@ -34,7 +37,7 @@ case ${INSTRUCTION} in
     helm dependency update
     ;;
   install)
-    valuesStr=`generateValuesStr ${VALUE_YAML} #`
+    valuesStr=`generateValuesStr ${VALUE_YAML} !!`
     logInfoMessage "Running command [helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}]"
     helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
     ;;
