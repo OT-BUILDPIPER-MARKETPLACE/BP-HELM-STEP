@@ -38,8 +38,14 @@ case ${INSTRUCTION} in
     ;;
   install)
     valuesStr=`generateValuesStr ${VALUE_YAML} @`
-    logInfoMessage "Running command [helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}]"
-    helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
+    if [ `isStrNonEmpty ${PUBLIC_CHART_REF}` -ne 0 ]
+    then
+      helm repo add ${PUBLIC_CHART_REPO_NAME} ${PUBLIC_CHART_REF}
+      helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${PUBLIC_CHART_REPO_NAME}/${LOCAL_CHART_REF} -n ${NAMESPACE} --version ${CHART_VERSION}
+    elif
+      logInfoMessage "Running command [helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}]"
+      helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
+    fi
     ;;
   *)
     logWarningMessage "Please check incompatible scanner passed!!!"

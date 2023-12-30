@@ -7,7 +7,10 @@ ADD BP-BASE-SHELL-STEPS /opt/buildpiper/shell-functions/
 
 ENV INSTRUCTION update
 ENV BASE_PATH ""
-ENV CHART_YAML_DIR "."
+#either it will be chart url or a directory location
+ENV LOCAL_CHART_REF ""
+ENV PUBLIC_CHART_REPO ""
+ENV PUBLIC_CHART_NAME ""
 ENV VALUE_YAML values.yaml
 ENV RELEASE_NAME ""
 ENV NAMESPACE default
