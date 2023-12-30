@@ -36,16 +36,15 @@ case ${INSTRUCTION} in
     cd ${CHART_YAML_DIR}
     helm dependency update
     ;;
+  install_public)
+    valuesStr=`generateValuesStr ${VALUE_YAML} @`
+    helm repo add ${PUBLIC_CHART_REPO_NAME} ${PUBLIC_CHART_REF}
+    helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${PUBLIC_CHART_REPO_NAME}/${LOCAL_CHART_REF} -n ${NAMESPACE} --version ${CHART_VERSION}
+    ;;
   install)
     valuesStr=`generateValuesStr ${VALUE_YAML} @`
-    if [ `isStrNonEmpty ${PUBLIC_CHART_REF}` -ne 0 ]
-    then
-      helm repo add ${PUBLIC_CHART_REPO_NAME} ${PUBLIC_CHART_REF}
-      helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${PUBLIC_CHART_REPO_NAME}/${LOCAL_CHART_REF} -n ${NAMESPACE} --version ${CHART_VERSION}
-    elif
-      logInfoMessage "Running command [helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}]"
-      helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
-    fi
+    logInfoMessage "Running command [helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}]"
+    helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${CHART_YAML_DIR} -n ${NAMESPACE}
     ;;
   *)
     logWarningMessage "Please check incompatible scanner passed!!!"
