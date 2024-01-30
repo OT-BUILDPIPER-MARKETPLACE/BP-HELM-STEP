@@ -39,6 +39,7 @@ case ${INSTRUCTION} in
   install_public)
     valuesStr=`generateValuesStr ${VALUE_YAML} @`
     helm repo add ${PUBLIC_CHART_REPO_NAME} ${PUBLIC_CHART_REPO_URL}
+    logInfoMessage "Running command [helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${PUBLIC_CHART_REPO_NAME}/${PUBLIC_CHART} -n ${NAMESPACE} --version ${CHART_VERSION}]"
     helm upgrade --install ${valuesStr} ${RELEASE_NAME} ${PUBLIC_CHART_REPO_NAME}/${PUBLIC_CHART} -n ${NAMESPACE} --version ${CHART_VERSION}
     ;;
   install)
